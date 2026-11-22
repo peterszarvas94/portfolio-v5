@@ -302,7 +302,10 @@ a {
 
 /* Education: after the career, entries in the same style as a job but without the arrow. */
 .education {
-  margin-top: var(--space-5);
+  /* Set off from the career by the same dashed rule as the homepage extras. */
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px dashed var(--muted);
   break-inside: avoid;
 
   /* Indented to the job column, so all entries share one left edge. */
@@ -629,6 +632,7 @@ a {
 
   /* Slightly tighter entries keep the education section on the one page. */
   .job + .job { margin-top: var(--space-3); }
+  .education { margin-top: var(--space-5); padding-top: var(--space-3); }
 
   h1, h2, h3 { break-after: avoid; }
   .identity, .stage, .job { break-inside: avoid; }
