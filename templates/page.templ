@@ -16,11 +16,11 @@ templ Page() {
 			<meta property="og:type" content="website"/>
 			<meta property="og:url" content="https://peterszarvas.hu/"/>
 			<meta property="og:title" content="Péter Szarvas"/>
-			<meta property="og:description" content="I build web apps, then deploy and maintain them."/>
+			<meta property="og:description" content="I build web applications."/>
 			<meta property="og:image" content="https://peterszarvas.hu/static/brand/og.png"/>
 			<meta property="og:image:width" content="1200"/>
 			<meta property="og:image:height" content="630"/>
-			<meta property="og:image:alt" content="Péter Szarvas: I build web apps, then deploy and maintain them."/>
+			<meta property="og:image:alt" content="Péter Szarvas: I build web applications."/>
 			<meta name="twitter:card" content="summary_large_image"/>
 			<link rel="preload" href="/static/fonts/IBMPlexMono-Regular.ttf" as="font" type="font/ttf" crossorigin/>
 			<link rel="stylesheet" href={ templ.SafeURL(Stylesheet) }/>
@@ -39,8 +39,11 @@ templ Page() {
 			</nav>
 			<main id="content" class="paper">
 				<header class="identity">
-					<h1>Péter Szarvas</h1>
-					<p class="intro">I build web apps, then deploy and maintain them.</p>
+					<div class="name-row">
+						<h1>Péter Szarvas</h1>
+						<p class="aside">Martonvásár, HUN</p>
+					</div>
+					<p class="intro">I build web applications.</p>
 					<address>
 						<a href="mailto:contact@peterszarvas.hu">contact@peterszarvas.hu</a>
 						<a href="https://github.com/peterszarvas94" target="_blank" rel="noopener">github.com/peterszarvas94</a>
@@ -90,7 +93,7 @@ templ Career() {
 				<div class="jobs">
 					<section class="job" aria-labelledby="ibm-heading">
 						<header class="job-head"><h3 id="ibm-heading">IBM / Kyndryl</h3><p class="dates"><time datetime="2020">2020</time>–<time datetime="2022">2022</time></p></header>
-						<ul><li>Deployed and maintained Windows Server infrastructure across hybrid on-premises and Microsoft Azure environments.</li></ul>
+						<ul><li>Deployed and maintained Windows Server infrastructure across hybrid on-premises and Microsoft Azure environments, handling L2 and L3 escalations.</li><li>Earned the Microsoft Azure Fundamentals (AZ-900) and Azure Administrator Associate (AZ-104, now expired) certifications.</li></ul>
 					</section>
 				</div>
 			</div>
@@ -105,20 +108,20 @@ templ Career() {
 						<ul><li>Developed and maintained an internal lead-tracking application, as one of two developers.</li><li>Tech stack: React, JavaScript.</li></ul>
 					</section>
 					<section class="job" aria-labelledby="eviden-heading">
-						<header class="job-head"><h3 id="eviden-heading">Eviden / Atos</h3><p class="dates"><time datetime="2024">2024</time>–present</p></header>
-						<ul><li>Developing a public-sector web application with an international, distributed team.</li><li>Tech stack: React, TypeScript, Node.js, NestJS.</li></ul>
+						<header class="job-head"><h3 id="eviden-heading">Eviden / Atos <span class="badge"><span class="lamp" aria-hidden="true"></span>Current</span></h3><p class="dates"><time datetime="2024">2024</time>–present</p></header>
+						<ul><li>Developing a new public-sector web application in an international team of 10+.</li><li>Building reusable UI components and REST API endpoints.</li><li>Tech stack: React, TypeScript, Material UI, Node.js, NestJS, OpenAPI, Vitest.</li></ul>
 					</section>
 				</div>
 			</div>
 		</li>
 		<li class="stage">
-			<h2>AI-Assisted Developer &amp; DevOps</h2>
+			<h2>AI-Assisted Solo Developer</h2>
 			<p class="aside stage-note">Designed, built, deployed and maintained end to end.</p>
 			<div class="stage-body">
 				@Arrow()
 				<div class="jobs projects">
 					<section class="job" aria-labelledby="bandcash-heading">
-						<header class="job-head"><h3 id="bandcash-heading">Bandcash</h3><a class="site" href="https://bandcash.app" target="_blank" rel="noopener">bandcash.app</a></header>
+						<header class="job-head"><h3 id="bandcash-heading">Bandcash <span class="badge"><span class="lamp" aria-hidden="true"></span>Current</span></h3><a class="site" href="https://bandcash.app" target="_blank" rel="noopener">bandcash.app</a></header>
 						<ul><li>A payment-splitting app for music bands, running in production.</li><li>Tech stack: Go, templ, Datastar, SQLite.</li></ul>
 					</section>
 					<section class="job" aria-labelledby="pongrac-heading">
