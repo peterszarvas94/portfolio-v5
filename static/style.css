@@ -264,6 +264,7 @@ a {
 }
 
 .dates, .aside { font-size: var(--text-small); color: var(--muted); }
+.stage-note { margin-top: var(--space-1); }
 .site { font-size: var(--text-small); white-space: nowrap; }
 
 /* Project URLs wrap as a group: beside every name while the longest pair fits
@@ -275,12 +276,12 @@ a {
   .projects .job-head h3 { flex-basis: 100%; }
 }
 
-/* Footer: the text and the button share a line and wrap cleanly. */
+/* Footer: the text, an empty line, then the button. */
 .home-extra footer p {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-3);
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 1lh;
 }
 
 .next {
@@ -301,12 +302,16 @@ a {
   padding-top: var(--space-6);
   border-top: 1px dashed var(--muted);
 
-  & section + section, & footer { margin-top: var(--space-6); }
+  & section + section { margin-top: var(--space-6); }
+  /* One empty line after the story, as between its paragraphs. */
+  & footer { margin-top: 1lh; }
 }
 
 
 .lore {
   & p { margin-top: var(--space-4); }
+  /* Paragraphs, and the list before one, are one empty line apart. */
+  & :is(p, ul) + p { margin-top: 1lh; }
 
   & .reading-list {
     margin-block-start: var(--space-2);
