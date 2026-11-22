@@ -7,6 +7,7 @@ A deliberately small, single-page portfolio and résumé, built as a static site
 Install the tools in `mise.toml`, then:
 
 - `mise run dev` is the live-reload dev server on http://localhost:8080. templ watches templates, Go and `static/`, rebuilds `public/` on every change and reloads the browser. Set `DEV_PORT` to change the port and `DEV_BIND=0.0.0.0` to reach it from other machines. It is a plain file server, so Caddy's redirects are not applied.
+- `scripts/dev-server.sh start` runs the same dev server in the background, bound to all addresses so it is reachable across the tailnet, waits until it answers and prints its URL (`http://<tailnet host>:<port>/`). `stop` ends it; `restart`, `status` and `logs` do what they say. Each worktree gets the first free port from 8080, so several can run at once; the process ID, ports and log are kept in `.dev/`. The T3 Portfolio project has **Dev server start** and **Dev server stop** scripts that run these.
 - `mise run build` renders `public/` only.
 - `mise run docker` builds and runs the production image on http://localhost:8080, with the real Caddy config.
 - `mise run check` checks template formatting and runs Go vet.
