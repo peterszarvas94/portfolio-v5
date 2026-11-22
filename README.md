@@ -6,7 +6,7 @@ A deliberately small, single-page portfolio and résumé, built as a static site
 
 Install the tools in `mise.toml`, then:
 
-- `mise run dev` is the live-reload dev server on http://localhost:8080. templ watches templates, Go and `static/`, rebuilds `public/` on every change and reloads the browser. Set `DEV_PORT` to change the port and `DEV_BIND=0.0.0.0` to reach it from other machines. It is a plain file server, so Caddy's redirects are not applied.
+- `mise run dev` is the live-reload dev server on http://localhost:8080. templ watches templates, Go and `static/`, rebuilds `public/` on every change and reloads the browser. Set `DEV_PORT` to change the port and `DEV_BIND=0.0.0.0` to reach it from other machines. It is a plain file server, so Caddy's redirects are not applied. It also keeps `static/resume.pdf` up to date (see below).
 - `mise run build` renders `public/` only.
 - `mise run docker` builds and runs the production image on http://localhost:8080, with the real Caddy config.
 - `mise run check` checks template formatting and runs Go vet.
@@ -33,7 +33,7 @@ The logo is a "P" in IBM Plex Mono Bold, black on an amber square with an inked 
 
 ## Résumé PDF
 
-`static/resume.pdf` is generated from the same page and print stylesheet with headless Chromium, and committed. Regenerate it with `mise run resume-pdf` after changing résumé content or print styles (needs `chromium` on PATH, or set `CHROMIUM_BIN`). The build fails if the PDF is missing, so the deploy never needs Chromium.
+`static/resume.pdf` is generated from the same page and print stylesheet with headless Chromium, and committed. While `mise run dev` runs, the dev server reprints it whenever the built page changes (templates, styles or script) and serves that file at `/resume.pdf`, so the committed PDF always matches the page; commit it with the change. The SHA-256 of the page it was printed from is kept in `.cache/` (ignored), so restarts do not rewrite an unchanged PDF, and the watcher ignores the PDF itself. Without the dev server, regenerate it with `mise run resume-pdf`. Both need `chromium` on PATH, or set `CHROMIUM_BIN`. The build fails if the PDF is missing, so the deploy never needs Chromium. The résumé must fit on one A4 page: check `pdfinfo static/resume.pdf` after content changes.
 
 **Save resume** downloads the PDF. **Print resume** opens the browser print dialog with the same layout. Homepage extras and controls are excluded from print. The print stylesheet requests A4 portrait with a zero page margin (16mm/18mm spacing comes from the content), so browsers have no room for their date/URL headers and footers. Margins and Scale in the print dialog should stay on Default.
 

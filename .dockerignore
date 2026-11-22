@@ -5,3 +5,4 @@ bin
 public
 tmp
 *_templ.go
+.cache

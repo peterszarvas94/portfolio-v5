@@ -3,6 +3,7 @@ WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 COPY cmd/ cmd/
+COPY resume/ resume/
 COPY templates/ templates/
 COPY static/ static/
 RUN go run github.com/a-h/templ/cmd/templ@v0.3.1020 generate \

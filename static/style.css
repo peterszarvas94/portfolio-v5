@@ -624,7 +624,7 @@ a {
     box-shadow: none;
     max-width: none;
     margin: 0;
-    padding: 14mm 18mm;
+    padding: 14mm 18mm 0;
     border: 0;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;

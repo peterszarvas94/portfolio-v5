@@ -17,7 +17,7 @@ env = { PORT = "7332" }
 run = """
 templ generate -watch \
   -watch-pattern '(.+\\.go$)|(.+\\.templ$)|(.+_templ\\.txt$)|(/static/[^/]+(/[^/]+)?$)' \
-  -ignore-pattern '/public/' \
+  -ignore-pattern '(/public/)|(/static/resume\\.pdf)' \
   -cmd 'go run ./cmd/build -serve' \
   -proxy http://localhost:7332 \
   -proxyport ${DEV_PORT:-8080} -proxybind ${DEV_BIND:-127.0.0.1}
