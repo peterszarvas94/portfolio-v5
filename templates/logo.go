@@ -250,6 +250,7 @@ func OGImage(name, intro, domain string) ([]byte, error) {
 	}
 
 	// Text column: name on the logo's cap line, domain on its baseline.
+	// Intro and domain at 22px keep the 48-character intro inside the sheet with the same 96px margin as the logo.
 	tx := lx + logo + 56
 	for _, t := range []struct {
 		path  string
@@ -259,8 +260,8 @@ func OGImage(name, intro, domain string) ([]byte, error) {
 		value string
 	}{
 		{fontBold, 64, colInk, ly + 62, name},
-		{fontRegular, 26, colInk, ly + 112, intro},
-		{fontRegular, 24, colMuted, ly + logo - 4, domain},
+		{fontRegular, 22, colInk, ly + 112, intro},
+		{fontRegular, 22, colMuted, ly + logo - 4, domain},
 	} {
 		if err := text(t.path, t.size, t.c, tx, t.y, t.value); err != nil {
 			return nil, err
