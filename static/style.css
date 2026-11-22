@@ -300,6 +300,21 @@ a {
   .projects .job-head h3 { flex-basis: 100%; }
 }
 
+/* Education: after the career, entries in the same style as a job but without the arrow. */
+.education {
+  margin-top: var(--space-5);
+  break-inside: avoid;
+
+  /* Indented to the job column, so all entries share one left edge. */
+  & .school { margin-top: var(--space-3); padding-left: calc(var(--rail) + 1ch); }
+
+  & ul {
+    margin-top: var(--space-1);
+    padding-left: 2ch;
+    list-style: '- ';
+  }
+}
+
 /* Footer: the text, an empty line, then the button. */
 .home-extra footer p {
   display: flex;
@@ -606,11 +621,14 @@ a {
     box-shadow: none;
     max-width: none;
     margin: 0;
-    padding: 16mm 18mm;
+    padding: 14mm 18mm;
     border: 0;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
+
+  /* Slightly tighter entries keep the education section on the one page. */
+  .job + .job { margin-top: var(--space-3); }
 
   h1, h2, h3 { break-after: avoid; }
   .identity, .stage, .job { break-inside: avoid; }
