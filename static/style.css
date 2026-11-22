@@ -155,6 +155,22 @@ a {
 
 [aria-expanded="true"] .lamp { border-color: var(--ink); background: var(--red); }
 
+/* Badge: a static label, so an inked border but no shadow; its lamp is lit red. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .75ch;
+  margin-inline-start: .5ch;
+  padding: 0 .75ch;
+  font-size: var(--text-small);
+  font-weight: var(--regular);
+  line-height: var(--leading);
+  vertical-align: .1em;
+  border: 1px solid var(--ink);
+
+  & .lamp { border-color: var(--ink); background: var(--red); }
+}
+
 /* The sheet */
 .paper {
   box-sizing: border-box;
@@ -168,6 +184,14 @@ a {
 
 .identity {
   margin-bottom: var(--space-6);
+
+  & .name-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    column-gap: var(--space-3);
+  }
 
   & .intro { margin-top: var(--space-2); }
 
