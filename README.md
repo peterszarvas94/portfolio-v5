@@ -35,7 +35,7 @@ The logo is a "P" in IBM Plex Mono Bold, black on an amber square with an inked 
 
 `static/resume.pdf` is generated from the same page and print stylesheet with headless Chromium, and committed. While `mise run dev` runs, the dev server reprints it whenever the built page changes (templates, styles or script) and serves that file at `/resume.pdf`, so the committed PDF always matches the page; commit it with the change. The SHA-256 of the page it was printed from is kept in `.cache/` (ignored), so restarts do not rewrite an unchanged PDF, and the watcher ignores the PDF itself. Without the dev server, regenerate it with `mise run resume-pdf`. Both need `chromium` on PATH, or set `CHROMIUM_BIN`. The build fails if the PDF is missing, so the deploy never needs Chromium. The résumé must fit on one A4 page: check `pdfinfo static/resume.pdf` after content changes.
 
-**Save resume** downloads the PDF. **Print resume** opens the browser print dialog with the same layout. Homepage extras and controls are excluded from print. The print stylesheet requests A4 portrait with a zero page margin (16mm/18mm spacing comes from the content), so browsers have no room for their date/URL headers and footers. Margins and Scale in the print dialog should stay on Default.
+**Save resume** downloads the PDF. **Print resume** opens the browser print dialog with the same layout. Homepage extras and controls are excluded from print. The print stylesheet requests A4 portrait with a zero page margin (12mm/18mm spacing comes from the content), so browsers have no room for their date/URL headers and footers. Margins and Scale in the print dialog should stay on Default.
 
 ## Deploy
 
