@@ -51,13 +51,6 @@ templ Page() {
 					</address>
 				</header>
 				@Career()
-				<section class="education" aria-labelledby="education-heading">
-					<h2 id="education-heading">Education</h2>
-					<section class="school" aria-labelledby="szte-heading">
-						<header class="job-head"><h3 id="szte-heading">University of Szeged</h3></header>
-						<ul><li>Computer Science (BSc), three semesters of core coursework; no degree.</li></ul>
-					</section>
-				</section>
 				<div class="home-extra">
 					<section class="lore" aria-labelledby="lore-heading">
 						<h2 id="lore-heading">Who am I?</h2>
@@ -85,18 +78,32 @@ templ Page() {
 	</html>
 }
 
-templ Arrow() {
-	<span class="arrow" aria-hidden="true">
-		<svg viewBox="0 0 10 6" fill="none"><path d="M1 1 L5 5 L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-	</span>
+templ Rail() {
+	<span class="rail" aria-hidden="true"></span>
 }
 
 templ Career() {
 	<ol class="career" aria-label="My path">
 		<li class="stage">
+			<h2>Full-Stack Developer</h2>
+			<div class="stage-body">
+				@Rail()
+				<div class="jobs">
+					<section class="job" aria-labelledby="eviden-heading">
+						<header class="job-head"><h3 id="eviden-heading">Eviden / Atos <span class="badge"><span class="lamp" aria-hidden="true"></span>Current</span></h3><p class="dates"><time datetime="2024">2024</time>–present</p></header>
+						<ul><li>Developing a new public-sector web application in an international team of 10+.</li><li>Building reusable UI components and REST API endpoints.</li><li>Tech stack: React, TypeScript, Material UI, Node.js, NestJS, OpenAPI, Vitest.</li></ul>
+					</section>
+					<section class="job" aria-labelledby="kyndryl-heading">
+						<header class="job-head"><h3 id="kyndryl-heading">Kyndryl</h3><p class="dates"><time datetime="2022">2022</time>–<time datetime="2024">2024</time></p></header>
+						<ul><li>Developed and maintained an internal lead-tracking application, as one of two developers.</li><li>Tech stack: React, JavaScript.</li></ul>
+					</section>
+				</div>
+			</div>
+		</li>
+		<li class="stage">
 			<h2>System Administrator</h2>
 			<div class="stage-body">
-				@Arrow()
+				@Rail()
 				<div class="jobs">
 					<section class="job" aria-labelledby="ibm-heading">
 						<header class="job-head"><h3 id="ibm-heading">IBM / Kyndryl</h3><p class="dates"><time datetime="2020">2020</time>–<time datetime="2022">2022</time></p></header>
@@ -106,26 +113,10 @@ templ Career() {
 			</div>
 		</li>
 		<li class="stage">
-			<h2>Full-Stack Developer</h2>
-			<div class="stage-body">
-				@Arrow()
-				<div class="jobs">
-					<section class="job" aria-labelledby="kyndryl-heading">
-						<header class="job-head"><h3 id="kyndryl-heading">Kyndryl</h3><p class="dates"><time datetime="2022">2022</time>–<time datetime="2024">2024</time></p></header>
-						<ul><li>Developed and maintained an internal lead-tracking application, as one of two developers.</li><li>Tech stack: React, JavaScript.</li></ul>
-					</section>
-					<section class="job" aria-labelledby="eviden-heading">
-						<header class="job-head"><h3 id="eviden-heading">Eviden / Atos <span class="badge"><span class="lamp" aria-hidden="true"></span>Current</span></h3><p class="dates"><time datetime="2024">2024</time>–present</p></header>
-						<ul><li>Developing a new public-sector web application in an international team of 10+.</li><li>Building reusable UI components and REST API endpoints.</li><li>Tech stack: React, TypeScript, Material UI, Node.js, NestJS, OpenAPI, Vitest.</li></ul>
-					</section>
-				</div>
-			</div>
-		</li>
-		<li class="stage">
 			<h2>AI-Assisted Solo Developer</h2>
 			<p class="aside stage-note">Designed, built, deployed and maintained end to end.</p>
 			<div class="stage-body">
-				@Arrow()
+				@Rail()
 				<div class="jobs projects">
 					<section class="job" aria-labelledby="bandcash-heading">
 						<header class="job-head"><h3 id="bandcash-heading">Bandcash <span class="badge"><span class="lamp" aria-hidden="true"></span>Current</span></h3><a class="site" href="https://bandcash.app" target="_blank" rel="noopener">bandcash.app</a></header>

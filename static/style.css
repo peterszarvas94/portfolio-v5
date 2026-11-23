@@ -207,7 +207,7 @@ a {
   }
 }
 
-/* Career: each stage is a role with an arrow running past its companies */
+/* Career, newest first: each stage is a role with a rail running past its companies */
 .career {
   padding: 0;
   list-style: none;
@@ -224,7 +224,7 @@ a {
   margin-top: var(--space-3);
 }
 
-.arrow {
+.rail {
   position: relative;
   display: block;
   margin: var(--space-1) 0 calc(-1 * var(--space-1));
@@ -233,18 +233,9 @@ a {
     content: '';
     position: absolute;
     top: 0;
-    bottom: 1px;
-    left: 50%;
-    border-left: var(--line) solid;
-    transform: translateX(-50%);
-  }
-
-  & svg {
-    position: absolute;
     bottom: 0;
     left: 50%;
-    width: 10px;
-    height: 6px;
+    border-left: var(--line) solid;
     transform: translateX(-50%);
   }
 }
@@ -255,7 +246,7 @@ a {
 
   & + & { margin-top: var(--space-4); }
 
-  /* Step marker on the arrow, level with the company name. */
+  /* Step marker on the rail, level with the company name. */
   &::before {
     box-sizing: border-box;
     content: '';
@@ -298,24 +289,6 @@ a {
 @container (max-width: 24rem) {
   /* The name takes the full row, so each URL wraps below it at its own width (its hover fill stays fitted). */
   .projects .job-head h3 { flex-basis: 100%; }
-}
-
-/* Education: after the career, entries in the same style as a job but without the arrow. */
-.education {
-  /* Set off from the career by the same dashed rule as the homepage extras. */
-  margin-top: var(--space-6);
-  padding-top: var(--space-6);
-  border-top: 1px dashed var(--muted);
-  break-inside: avoid;
-
-  /* Indented to the job column, so all entries share one left edge. */
-  & .school { margin-top: var(--space-3); padding-left: calc(var(--rail) + 1ch); }
-
-  & ul {
-    margin-top: var(--space-1);
-    padding-left: 2ch;
-    list-style: '- ';
-  }
 }
 
 /* Footer: the text, an empty line, then the button. */
@@ -531,7 +504,7 @@ a {
   font-size: var(--text-small);
 
   & .stage-body { margin-top: 0; }
-  & .arrow { margin-block-end: 0; }
+  & .rail { margin-block-end: 0; }
   & .job + .job { margin-top: var(--space-3); }
   & .aside { font-size: inherit; }
 }
@@ -624,15 +597,11 @@ a {
     box-shadow: none;
     max-width: none;
     margin: 0;
-    padding: 14mm 18mm 0;
+    padding: 16mm 18mm;
     border: 0;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
-
-  /* Slightly tighter entries keep the education section on the one page. */
-  .job + .job { margin-top: var(--space-3); }
-  .education { margin-top: var(--space-5); padding-top: var(--space-3); }
 
   h1, h2, h3 { break-after: avoid; }
   .identity, .stage, .job { break-inside: avoid; }
