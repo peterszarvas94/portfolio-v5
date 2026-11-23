@@ -334,28 +334,17 @@ a {
   padding-top: var(--space-4);
   border-top: 1px solid #d6d5d0;
   font-size: var(--text-small);
+
+  & .sheet-toggle {
+    box-shadow: none;
+
+    &:active { translate: none; }
+  }
 }
 
 .version-picker {
   display: inline-flex;
-  align-items: stretch;
-  gap: var(--space-1);
-}
-
-.tag {
-  display: inline-flex;
   align-items: center;
-  padding: 7px 1ch;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  border: 1px solid transparent;
-}
-
-.tag-green {
-  color: var(--paper);
-  background: var(--green);
-  border-color: var(--green);
 }
 
 .version-select {
@@ -576,7 +565,7 @@ a {
   font-size: inherit;
 }
 
-/* Wide screens: while open, the sheet sits right of the page, level with the buttons, and scrolls with it. */
+/* Wide screens: while open, the sheet sits right of the page, level with the top of the sheet, and scrolls with it. */
 @media screen and (min-width: 72rem) {
   body:has(.typesheet:not([hidden])) {
     display: grid;
@@ -591,7 +580,7 @@ a {
 
   .typesheet {
     grid-column: 2;
-    grid-row: 1 / span 2;
+    grid-row: 2;
     margin: 0;
   }
 }
