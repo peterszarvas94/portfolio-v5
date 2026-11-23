@@ -47,7 +47,7 @@ Routes handled by Caddy:
 | Path | Result |
 | --- | --- |
 | `/` | The page |
-| `/resume`, `/resume/`, `/resume/index.html` | 301 to `/` (the old résumé page) |
+| `/resume`, `/resume/`, `/resume/index.html` | 302 to `/resume.pdf`, which downloads |
 | `/resume.pdf` | The PDF, downloaded as `Peter-Szarvas-resume.pdf` |
 | `/static/Szarvas_Peter_resume.pdf` | 301 to `/resume.pdf` (the old PDF link) |
 | `/demo/datastar-tiptap/*` | 301 to `https://tiptap.peterszarvas.hu/*` |
