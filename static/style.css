@@ -323,16 +323,15 @@ a {
   & footer { margin-top: 1lh; }
 }
 
-/* Colophon: spec sheet toggle and version selector, under a hairline rule like usgraphics.com's footer. */
+/* Colophon: spec sheet toggle and version selector, under the page like the top controls above it. */
 .colophon {
+  max-width: var(--measure);
+  margin: var(--space-4) auto 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3) var(--space-4);
-  margin-top: var(--space-6);
-  padding-top: var(--space-4);
-  border-top: 1px solid #d6d5d0;
   font-size: var(--text-small);
 
   & .sheet-toggle {
@@ -576,6 +575,7 @@ a {
 
     & .page-nav { grid-column: 1; grid-row: 1; width: 100%; margin: 0 0 var(--space-3); }
     & .paper { grid-column: 1; grid-row: 2; width: 100%; margin: 0; }
+    & .colophon { grid-column: 1; grid-row: 3; width: 100%; margin: var(--space-4) 0 0; }
   }
 
   .typesheet {
@@ -622,7 +622,7 @@ a {
   }
 
   /* The story and the call to action stay on screen. */
-  .page-nav, .skip-link, .next, .typesheet, .home-extra { display: none; }
+  .page-nav, .skip-link, .next, .typesheet, .home-extra, .colophon { display: none; }
   /* Links stay clickable in the PDF but print as plain text. */
   a { text-decoration: none; }
 
