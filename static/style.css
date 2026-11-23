@@ -148,7 +148,6 @@ a {
   &:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 }
 
-.btn-small { --btn-pad: 4px; padding-inline: 1ch; font-size: var(--text-small); }
 .btn-amber { background: var(--amber); }
 .btn-green { color: var(--paper); background: var(--green); }
 
@@ -324,23 +323,62 @@ a {
   & footer { margin-top: 1lh; }
 }
 
-/* Links to the earlier versions of the site, under a dashed rule like the one above the extras. */
-.versions {
+/* Colophon: spec sheet toggle and version selector, under a hairline rule like usgraphics.com's footer. */
+.colophon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
   margin-top: var(--space-6);
   padding-top: var(--space-4);
-  border-top: 1px dashed var(--muted);
+  border-top: 1px solid #d6d5d0;
+  font-size: var(--text-small);
+}
 
-  & ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-3);
-    margin-top: var(--space-2);
-    padding: 0;
-    list-style: none;
+.version-picker {
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--space-1);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 1ch;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  border: 1px solid transparent;
+}
+
+.tag-green {
+  color: var(--paper);
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.version-select {
+  appearance: none;
+  padding: 7px 2.5ch 7px 1ch;
+  font: inherit;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink);
+  background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='%23111' d='M0 0h8L4 5z'/%3E%3C/svg%3E") no-repeat right .9ch center;
+  border: 1px dotted var(--ink);
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--paper);
+    border-style: solid;
+    background-color: var(--ink);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='%23fff' d='M0 0h8L4 5z'/%3E%3C/svg%3E");
   }
-
-  & .year { color: var(--muted); }
-  & .btn:hover .year { color: inherit; }
+  &:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  & option { color: var(--ink); background: var(--paper); }
 }
 
 
@@ -538,23 +576,8 @@ a {
   font-size: inherit;
 }
 
-/* The bottom spec sheet toggle: under the page, right above where the sheet opens.
-   Shown only while the sheet opens below the page (narrower than 72rem); the top one hides then. */
-.sheet-bar {
-  max-width: var(--measure);
-  margin: var(--space-5) auto 0;
-  font-size: var(--text-small);
-}
-
-@media screen and (max-width: 71.99rem) {
-  .page-nav .sheet-toggle { display: none; }
-  .sheet-bar + .typesheet { margin-top: var(--space-3); }
-}
-
 /* Wide screens: while open, the sheet sits right of the page, level with the buttons, and scrolls with it. */
 @media screen and (min-width: 72rem) {
-  .sheet-bar { display: none; }
-
   body:has(.typesheet:not([hidden])) {
     display: grid;
     grid-template-columns: minmax(0, var(--measure)) 20rem;
@@ -610,7 +633,7 @@ a {
   }
 
   /* The story and the call to action stay on screen. */
-  .page-nav, .skip-link, .next, .typesheet, .sheet-bar, .home-extra { display: none; }
+  .page-nav, .skip-link, .next, .typesheet, .home-extra { display: none; }
   /* Links stay clickable in the PDF but print as plain text. */
   a { text-decoration: none; }
 
