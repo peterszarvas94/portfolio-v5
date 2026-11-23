@@ -6,7 +6,7 @@ A deliberately small, single-page portfolio and résumé, built as a static site
 
 Install the tools in `mise.toml`, then:
 
-- `mise run dev` is the live-reload dev server on http://localhost:8080. templ watches templates, Go and `static/`, rebuilds `public/` on every change and reloads the browser. Set `DEV_PORT` to change the port and `DEV_BIND=0.0.0.0` to reach it from other machines. It is a plain file server, so Caddy's redirects are not applied.
+- `mise run dev` is the live-reload dev server on http://localhost:8080. templ watches templates, Go and `static/`, rebuilds `public/` on every change and reloads the browser. Set `DEV_PORT` to change the port and `DEV_BIND=0.0.0.0` to reach it from other machines. It is a plain file server, so Caddy's redirects are not applied. It also keeps `static/resume.pdf` up to date (see below).
 - `scripts/dev-server.sh start` runs the same dev server in the background, bound to all addresses so it is reachable across the tailnet, waits until it answers and prints its URL (`http://<tailnet host>:<port>/`). `stop` ends it; `restart`, `status` and `logs` do what they say. Each worktree gets the first free port from 8080, so several can run at once; the process ID, ports and log are kept in `.dev/`. The T3 Portfolio project has **Run dev server** and **Stop dev server** scripts that run these; in a worktree from before this script, they use the copy in the main checkout.
 - `mise run build` renders `public/` only.
 - `mise run docker` builds and runs the production image on http://localhost:8080, with the real Caddy config.
@@ -16,7 +16,7 @@ Career content lives in `templates/page.templ`. Employer year ranges come from t
 
 ## Typography and styles
 
-`static/style.css` uses native CSS nesting and shared `:root` variables. IBM Plex Mono has four text roles: title (24px, bold), section heading (20px, bold), body (16px, regular; company and project headings bold), and secondary text (13px, regular). Screen sizes use rem units. Dates, notes and project descriptions share the same muted style. Print overrides the four size tokens to 18/12/10/9pt. Change the role tokens rather than adding one-off sizes.
+`static/style.css` uses native CSS nesting and shared `:root` variables. IBM Plex Mono has four text roles: title (24px, bold), section heading (20px, bold), body (16px, regular; company and project headings bold, "Tech stack:" labels italic), and secondary text (13px, regular). Screen sizes use rem units. Dates, notes and project descriptions share the same muted style. Print overrides the four size tokens to 18/12/10/9pt. Change the role tokens rather than adding one-off sizes.
 
 ## Logo and icons
 
@@ -34,9 +34,9 @@ The logo is a "P" in IBM Plex Mono Bold, black on an amber square with an inked 
 
 ## Résumé PDF
 
-`static/resume.pdf` is generated from the same page and print stylesheet with headless Chromium, and committed. Regenerate it with `mise run resume-pdf` after changing résumé content or print styles (needs `chromium` on PATH, or set `CHROMIUM_BIN`). The build fails if the PDF is missing, so the deploy never needs Chromium.
+`static/resume.pdf` is generated from the same page and print stylesheet with headless Chromium, and committed. While `mise run dev` runs, the dev server reprints it whenever the built page changes (templates, styles or script) and serves that file at `/resume.pdf`, so the committed PDF always matches the page; commit it with the change. The SHA-256 of the page it was printed from is kept in `.cache/` (ignored), so restarts do not rewrite an unchanged PDF, and the watcher ignores the PDF itself. Without the dev server, regenerate it with `mise run resume-pdf`. Both need `chromium` on PATH, or set `CHROMIUM_BIN`. The build fails if the PDF is missing, so the deploy never needs Chromium. The résumé must fit on one A4 page: check `pdfinfo static/resume.pdf` after content changes.
 
-**Save resume** downloads the PDF. **Print resume** opens the browser print dialog with the same layout. Homepage extras and controls are excluded from print. The print stylesheet requests A4 portrait with a zero page margin (16mm/18mm spacing comes from the content), so browsers have no room for their date/URL headers and footers. Margins and Scale in the print dialog should stay on Default.
+**Save resume** downloads the PDF. **Print resume** opens the browser print dialog with the same layout. Homepage extras and controls are excluded from print. The print stylesheet requests A4 portrait with a zero page margin (12mm/18mm spacing comes from the content), so browsers have no room for their date/URL headers and footers. Margins and Scale in the print dialog should stay on Default.
 
 ## Deploy
 

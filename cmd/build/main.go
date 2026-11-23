@@ -12,12 +12,14 @@ import (
 	"io"
 	"io/fs"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
 
+	"portfolio/resume"
 	"portfolio/templates"
 )
 
@@ -42,19 +44,35 @@ func main() {
 		// Page requests rebuild first: templ's watch mode hot-reloads text-only template edits
 		// without re-running this command, so the static output would otherwise go stale.
 		files := http.FileServer(http.Dir(outDir))
-		var mu sync.RWMutex
-		log.Fatal(http.ListenAndServe(":"+port, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			if r.URL.Path == "/" || strings.HasSuffix(r.URL.Path, ".html") {
-				mu.Lock()
+		ln, err := net.Listen("tcp", ":"+port)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pdf := &resumeSync{page: "http://localhost:" + port + "/"}
+		go pdf.refreshLogged() // the page may have changed since static/resume.pdf was printed
+		log.Fatal(http.Serve(ln, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			page := r.URL.Path == "/" || strings.HasSuffix(r.URL.Path, ".html")
+			if page || r.URL.Path == "/resume.pdf" {
+				buildMu.Lock()
 				err := build()
-				mu.Unlock()
+				buildMu.Unlock()
 				if err != nil {
 					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
 			}
-			mu.RLock()
-			defer mu.RUnlock()
+			switch {
+			case r.URL.Path == "/resume.pdf":
+				// Reprint first if the page changed. No lock held: Chromium loads the page from here.
+				if err := pdf.refresh(); err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+			case page:
+				go pdf.refreshLogged()
+			}
+			buildMu.RLock()
+			defer buildMu.RUnlock()
 			w.Header().Set("Cache-Control", "no-cache")
 			files.ServeHTTP(w, r)
 		})))
@@ -114,6 +132,64 @@ func build() error {
 		return fmt.Errorf("render page: %w", err)
 	}
 	return page.Close()
+}
+
+// buildMu guards public/: build() replaces it, requests read it.
+var buildMu sync.RWMutex
+
+// resumeSync keeps static/resume.pdf printed from the current page while the preview runs,
+// so the committed PDF (what deploys) never lags behind the templates and print styles.
+// It reprints when the built page changes; the page's SHA-256 at the last print is kept in
+// .cache/, so restarts don't rewrite an unchanged PDF. The dev watcher ignores the PDF.
+type resumeSync struct {
+	page string // the preview's page URL, for Chromium
+	mu   sync.Mutex
+}
+
+const (
+	resumePDF = "static/resume.pdf"
+	resumeKey = ".cache/resume-pdf.sha256"
+)
+
+func (s *resumeSync) refreshLogged() {
+	if err := s.refresh(); err != nil {
+		log.Printf("resume.pdf: %v", err)
+	}
+}
+
+func (s *resumeSync) refresh() error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	buildMu.RLock()
+	page, err := os.ReadFile(filepath.Join(outDir, "index.html"))
+	buildMu.RUnlock()
+	if err != nil {
+		return err
+	}
+	// The page links the fingerprinted stylesheet, so style edits change it too.
+	key := fmt.Sprintf("%x", sha256.Sum256(page))
+	if old, err := os.ReadFile(resumeKey); err == nil && string(old) == key {
+		return nil
+	}
+	tmp := resumePDF + ".tmp"
+	if err := resume.Print(context.Background(), s.page, tmp); err != nil {
+		os.Remove(tmp)
+		return fmt.Errorf("%w(prints with %s; set CHROMIUM_BIN)", err, resume.Browser())
+	}
+	if err := os.Rename(tmp, resumePDF); err != nil {
+		return err
+	}
+	buildMu.Lock()
+	err = copyFile(resumePDF, filepath.Join(outDir, "resume.pdf"))
+	buildMu.Unlock()
+	if err != nil {
+		return err
+	}
+	if err := os.MkdirAll(filepath.Dir(resumeKey), 0o755); err != nil {
+		return err
+	}
+	log.Printf("Printed %s from the current page", resumePDF)
+	return os.WriteFile(resumeKey, []byte(key), 0o644)
 }
 
 // fingerprinted are the static files published only under a content-hashed name.
