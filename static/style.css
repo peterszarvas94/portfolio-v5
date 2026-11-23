@@ -280,16 +280,8 @@ a {
 
 .dates, .aside { font-size: var(--text-small); color: var(--muted); }
 .stage-note { margin-top: var(--space-1); }
-.site { font-size: var(--text-small); white-space: nowrap; }
-
-/* Project URLs wrap as a group: beside every name while the longest pair fits
-   ("Wedding invitation" + its URL in Plex Mono, 0.6em per character), all under their names below that. */
-.projects { container-type: inline-size; }
-
-@container (max-width: 24rem) {
-  /* The name takes the full row, so each URL wraps below it at its own width (its hover fill stays fitted). */
-  .projects .job-head h3 { flex-basis: 100%; }
-}
+/* A project's URL is a subtitle: its own row under the name and dates. */
+.site { flex-basis: 100%; font-size: var(--text-small); }
 
 /* Footer: the text, an empty line, then the button. */
 .home-extra footer p {
@@ -602,6 +594,9 @@ a {
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
+
+  /* A little tighter between entries, so the project URL rows still fit the one page. */
+  .job + .job { margin-top: var(--space-3); }
 
   h1, h2, h3 { break-after: avoid; }
   .identity, .stage, .job { break-inside: avoid; }
