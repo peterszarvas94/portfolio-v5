@@ -11,15 +11,15 @@ run = "templ generate && go run ./cmd/build"
 
 [tasks.dev]
 description = "Live-reload dev server on $DEV_PORT (default 8080); rebuilds on template, Go or static changes"
-# templ rebuilds and serves public/ on PORT; its proxy on DEV_PORT injects browser reload.
-# Set DEV_BIND=0.0.0.0 to reach it from other machines. Caddy redirects are not applied.
-env = { PORT = "7332" }
+# templ rebuilds and serves public/ on DEV_APP_PORT (default 7332); its proxy on DEV_PORT injects
+# browser reload. Set DEV_BIND=0.0.0.0 (or '[::]' for IPv4 and IPv6) to reach it from other
+# machines. Caddy redirects are not applied.
 run = """
-templ generate -watch \
+PORT=${DEV_APP_PORT:-7332} templ generate -watch \
   -watch-pattern '(.+\\.go$)|(.+\\.templ$)|(.+_templ\\.txt$)|(/static/[^/]+(/[^/]+)?$)' \
   -ignore-pattern '/public/' \
   -cmd 'go run ./cmd/build -serve' \
-  -proxy http://localhost:7332 \
+  -proxy http://localhost:${DEV_APP_PORT:-7332} \
   -proxyport ${DEV_PORT:-8080} -proxybind ${DEV_BIND:-127.0.0.1}
 """
 
