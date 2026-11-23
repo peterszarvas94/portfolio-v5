@@ -625,13 +625,6 @@ a {
   }
 
   .print-only { display: inline; }
-  /* Two columns, so the site link costs no extra line and the resume stays one page. */
-  .identity address {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: start;
-    column-gap: 4ch;
-  }
 
   /* The story and the call to action stay on screen. */
   .page-nav, .skip-link, .next, .typesheet, .home-extra, .colophon { display: none; }
@@ -642,7 +635,7 @@ a {
     box-shadow: none;
     max-width: none;
     margin: 0;
-    padding: 12mm 18mm;
+    padding: 10mm 18mm;
     border: 0;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
