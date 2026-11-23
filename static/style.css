@@ -193,7 +193,7 @@ a {
 }
 
 .identity {
-  /* Name and intro on the left; the city and contact links stacked on the right. */
+  /* Name and intro on the left; the city and contact links share a left edge on the right. */
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas: "name city" "intro links";
@@ -203,7 +203,7 @@ a {
 
   & .name-row { display: contents; }
   & h1 { grid-area: name; align-self: baseline; }
-  & .name-row .aside { grid-area: city; align-self: baseline; text-align: right; }
+  & .name-row .aside { grid-area: city; align-self: baseline; }
 
   & .intro { grid-area: intro; margin-top: var(--space-2); }
 
@@ -211,10 +211,9 @@ a {
     grid-area: links;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     row-gap: var(--space-1);
     margin-top: var(--space-2);
-    text-align: right;
     font-size: var(--text-small);
     font-style: normal;
     overflow-wrap: anywhere;
@@ -601,8 +600,7 @@ a {
     grid-template-areas: "name" "city" "intro" "links";
     margin-bottom: var(--space-5);
 
-    & .name-row .aside { text-align: left; }
-    & address { align-items: flex-start; margin-top: var(--space-4); text-align: left; }
+    & address { margin-top: var(--space-4); }
   }
 }
 
