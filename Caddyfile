@@ -14,9 +14,9 @@
 		redir https://tiptap.peterszarvas.hu{uri} permanent
 	}
 
-	# The résumé used to be a separate page; it is now the home page.
+	# Short link to the résumé PDF, which downloads (see Content-Disposition below).
 	@resume path /resume /resume/ /resume/index.html
-	redir @resume / permanent
+	redir @resume /resume.pdf
 
 	# Old PDF location from the previous site.
 	redir /static/Szarvas_Peter_resume.pdf /resume.pdf permanent
