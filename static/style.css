@@ -193,24 +193,28 @@ a {
 }
 
 .identity {
+  /* Name and intro on the left; the city and contact links stacked on the right. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "name city" "intro links";
+  column-gap: var(--space-4);
+  align-items: start;
   margin-bottom: var(--space-6);
 
-  & .name-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    column-gap: var(--space-3);
-  }
+  & .name-row { display: contents; }
+  & h1 { grid-area: name; align-self: baseline; }
+  & .name-row .aside { grid-area: city; align-self: baseline; text-align: right; }
 
-  & .intro { margin-top: var(--space-2); }
+  & .intro { grid-area: intro; margin-top: var(--space-2); }
 
   & address {
+    grid-area: links;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     row-gap: var(--space-1);
-    margin-top: var(--space-4);
+    margin-top: var(--space-2);
+    text-align: right;
     font-size: var(--text-small);
     font-style: normal;
     overflow-wrap: anywhere;
@@ -592,7 +596,14 @@ a {
   :root { --rail: 2ch; }
   body { padding: var(--space-5) var(--space-4); }
   .paper { padding: var(--space-5) var(--space-4); }
-  .identity { margin-bottom: var(--space-5); }
+  .identity {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "name" "city" "intro" "links";
+    margin-bottom: var(--space-5);
+
+    & .name-row .aside { text-align: left; }
+    & address { align-items: flex-start; margin-top: var(--space-4); text-align: left; }
+  }
 }
 
 /* Print: zero page margin leaves no room for browser headers/footers; .paper carries the spacing. */
@@ -635,7 +646,7 @@ a {
     box-shadow: none;
     max-width: none;
     margin: 0;
-    padding: 10mm 18mm;
+    padding: 12mm 18mm;
     border: 0;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
