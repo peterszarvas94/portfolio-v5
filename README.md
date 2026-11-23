@@ -15,7 +15,7 @@ Career content lives in `templates/page.templ`. Employer year ranges come from t
 
 ## Typography and styles
 
-`static/style.css` uses native CSS nesting and shared `:root` variables. IBM Plex Mono has four text roles: title (24px, bold), section heading (20px, bold), body (16px, regular; company and project headings bold), and secondary text (13px, regular). Screen sizes use rem units. Dates, notes and project descriptions share the same muted style. Print overrides the four size tokens to 18/12/10/9pt. Change the role tokens rather than adding one-off sizes.
+`static/style.css` uses native CSS nesting and shared `:root` variables. IBM Plex Mono has four text roles: title (24px, bold), section heading (20px, bold), body (16px, regular; company and project headings bold, "Tech stack:" labels italic), and secondary text (13px, regular). Screen sizes use rem units. Dates, notes and project descriptions share the same muted style. Print overrides the four size tokens to 18/12/10/9pt. Change the role tokens rather than adding one-off sizes.
 
 ## Logo and icons
 

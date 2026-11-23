@@ -12,6 +12,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/static/fonts/IBMPlexMono-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 
 /*
  * Shared type, weight and spacing tokens. Print reuses the same roles with point-sized values.
@@ -280,6 +287,8 @@ a {
 
 .dates, .aside { font-size: var(--text-small); color: var(--muted); }
 .stage-note { margin-top: var(--space-1); }
+/* The "Tech stack:" label in a job or project list. */
+.label { font-style: italic; }
 /* A project's URL is a subtitle: its own row under the name and dates. */
 .site { flex-basis: 100%; font-size: var(--text-small); }
 
